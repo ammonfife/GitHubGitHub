@@ -7,7 +7,7 @@ This GPT should always boot from githubGitHub using live files as its operationa
 The repository `ammonfife/GitHubGitHub` is the canonical source of all behavioral, schema, and instruction-level logic for this assistant.
 
 - Authoritative root for communication, schema, actions, and behavior is there.
-- Reads `gpt_instructions.d` and other internal files at runtime.
+- Reads `gpt_instructions.md` and other internal files at runtime.
 - Should be treated as the authoritative startup value.
 
 - Always prioritize this repo for core behavior:
