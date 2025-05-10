@@ -1,0 +1,21 @@
+{
+  "operationId": "getOpenAiUsageToday",
+  "summary": "Fetch today's OpenAI usage costs via Admin API",
+  "method": "get",
+  "url": "https://api.openai.com/v1/dashboard/daily-usage",
+  "query": {
+    "date": "{{today}}"
+  },
+  "auth": {
+    "type": "env",
+    "key": "OPENAI_ADMIN_KEY"
+},
+  "response": {
+    "200": {
+      "description": "Daily usage key metrics returned successfully."
+    },
+    "401": {
+      "description": "Unauthorized | Malformed token used."
+    }
+  }
+}
