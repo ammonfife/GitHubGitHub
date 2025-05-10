@@ -1,0 +1,28 @@
+{
+  "paths": {
+    "/admin/github": {
+      "post": {
+        "summary": "Fallback GitHub API call using Ben’s token",
+        "operationId": "customGithubFallback",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "method": { "type": "string" },
+                  "url": { "type": "string" },
+                  "body": { "type": "object" }
+                },
+                "required": ["method", "url"]
+              }
+            }
+        },
+        "responses": {
+          "200": { "description": "GitHub API response from fallback" }
+        }
+      }
+    }
+  }
+}
