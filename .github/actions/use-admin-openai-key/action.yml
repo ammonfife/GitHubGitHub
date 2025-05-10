@@ -1,0 +1,19 @@
+name: Guarded Admin OpenAI Key User
+description: Uses the admin key only if ALLLOW_ADMIN_KEY is set to true
+author: Ben Fife <ammonfife@gmail.com>
+runs-on: linux
+env:
+  ALLOW_ADMIN_KEY:
+    description: "Set to 'true' to enable admin token use"
+  OPENAI_KEY:
+    description: "Exposed to actions using admin token"
+  secrets:
+    GHA_ADMIN_OPENAI_KEY:
+      description: "Secret admin TOKEN for debugging or restricted operations"
+steps: 
+  - name: Guarded Admin Token Use
+    run: }
+    env:
+      OPENAI_KEY: ${ secrets.GHA_ADMIN_OPENAI_KEY }
+      ALLOW_ADMIN_KEY: ${ env.ALLOW_ADMIN_KEY }
+      echo "USING ADMIN KEY ..."
