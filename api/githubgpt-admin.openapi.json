@@ -1,0 +1,20 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "GitHub GPT Admin Actions",
+    "version": "4.0.0",
+    "description": "Privileged actions for security, fallback token usage, and permission management."
+  },
+  "paths": {
+    "/actions/use-admin-openai-key": {
+      "post": {
+        "operationId": "useAdminOpenAIKey",
+        "summary": "Safely uses the admin OpenAI key if access conditions are met",
+        "responses": {
+          "200": { "description": "Admin token used successfully" },
+          "403": { "description": "Not allowed to access admin token" }
+        }
+      }
+    }
+  }
+}
