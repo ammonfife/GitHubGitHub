@@ -5,6 +5,11 @@
     "version": "4.0.0",
     "description": "Privileged actions for security, fallback token usage, and permission management."
   },
+  "servers": [
+    {
+      "url": "https://admin.githubgpt.genomicdigital.com"
+    }
+  ],
   "paths": {
     "/actions/use-admin-openai-key": {
       "post": {
