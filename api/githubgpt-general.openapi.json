@@ -5,20 +5,17 @@
     "version": "4.0.0",
     "description": "Standard actions for using with code repositories, creation, file update, and navigation."
   },
+  "servers": [
+    {
+      "url": "https://api.github.com"
+    }
+  ],
   "paths": {
     "/user/repos": {
       "get": {
         "operationId": "getUserRepos",
         "summary": "List all user-accessible repos with pagination",
-        "parameters": [
-          { "name": "visibility", "in": "query", "schema": { "type": "string", "enum": ["all", "public", "private"] } },
-          {
-            "name": "per_page", "in": "query", "schema": { "type": "integer", "default": 30 }
-          },
-          {
-            "name": "page", "in": "query", "schema": { "type": "integer", "default": 1 }
-          }
-        ],
+        "parameters": [{ "name": "visibility", "in": "query", "schema": { "type": "string", "enum": ["all", "public", "private"] } }, { "name": "per_page", "in": "query", "schema": { "type": "integer", "default": 30 } }, { "name": "page", "in": "query", "schema": { "type": "integer", "default": 1} }],
         "responses": { "200": { "description": "List of repositories" } }
       }
     }
