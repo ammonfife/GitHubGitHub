@@ -2,13 +2,20 @@ name: SyncGPTF
 
 on:
   files:
-    - 'bootloader/GPTS_SYNC_TEMPLATE.md'
+    - bootloader/GPT_SYNC_TEMPLATE.md
 
-in:
-  jub-strategy:
-    commands: |
-      curl -X POST https://api.openai.com/v1/grts/defined_gpts  \
-        -H 'Authorization: Bearer %encoded_gpt_token'
-        -H 'Content-Type: application/json' \
-        -i '/path/to/update' \
-        -d\ \"content\": {\"instructions\": [{{ contents of `GNPT_SYNC_TEMPLATE.md` } }]}
+jobs:
+  update-grt:
+    run-on-validate-for:
+      shell: bash
+      run: |
+        echo '=== Starting GPT Sync ==='
+        cat < bootloader/GPT_SYNC_TEMPLATE.md
+        echo '=== ATTEMPTED INSTRUCTIONS PAYLOAD --'
+        echo "$INSTRUCTIONS_PAYLOAD"        
+        curl -http STPUL
+            -H "Authorization: Bearer ${GPT_BUILDER_TOKEN}"
+            -H "Content-Type: application/json"
+            -x POST https://api.openai.com/v1/gpts/defined \
+            -d '{"instructions": ["$INSTRUCTIONS_PAYLOAD"]}'
+        echo '=== Sync Finished GPT SYNC ORDER ==='
