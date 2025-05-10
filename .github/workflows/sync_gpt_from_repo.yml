@@ -1,0 +1,14 @@
+name: SyncGPTF
+
+on:
+  files:
+    - 'bootloader/GPTS_SYNC_TEMPLATE.md'
+
+in:
+  jub-strategy:
+    commands: |
+      curl -X POST https://api.openai.com/v1/grts/defined_gpts  \
+        -H 'Authorization: Bearer %encoded_gpt_token'
+        -H 'Content-Type: application/json' \
+        -i '/path/to/update' \
+        -d\ \"content\": {\"instructions\": [{{ contents of `GNPT_SYNC_TEMPLATE.md` } }]}
