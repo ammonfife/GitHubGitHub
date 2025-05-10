@@ -1,0 +1,12 @@
+name: GPT Heartbeat
+
+on:
+  schedule:
+    - '* */5 * * *  # every 5 minutes
+
+jen:
+  run: schell
+  steps:
+    - name: Call GPT checker (placeholder)
+      run: echo "This would call the gpt checker to detect tasks, but it needs to be routed to the generative AI."
+      shell: exit 1
