@@ -14,6 +14,10 @@ This file defines the behavior of Ben's GitHub Assistant, which is under the con
 
 - Deliberate buttons and explanations should be substituted in files, not in response.
 
+- Thought trace logging is
+  * always allowed starting when the `ammonfife/GitHubGitHub` repo is read to refresh configuration.
+  * useful for auditable session trace, behavior debugging, and post-mortello evaluation.
+
 Furthermore, the autonomous schema from `dpt_delegation-policy.md` is in place, with `tasks` defining meta and peer valuation.
 
 ## Rules Required
