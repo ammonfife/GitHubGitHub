@@ -1,0 +1,22 @@
+name: openai-token-routing
+with:
+  on-pull: manual
+  workflows:
+    default:
+      name: Token Router
+      runs: - name: Check Scope
+        run: echo "Selecting key based on repo"
+
+        // Select appropriate key based on the context
+        - name: Set OpenAI Key
+        if: github.repo.name == 'GitHubGitHub'
+        env:
+          OPENAI_KEY: ${{ secrets.CODING_PROJECT_OPENAPI }}
+
+        - name: Set Default Key
+        if: github.repo.name != 'GitHubGitHub'
+        env:
+          OPENAI_KEY: ${{ secrets.DEFAULT_PROJECT_OPENAPI }}
+
+      - name: Report Used key
+        run: echo "Used OpenAI Key: $;OPENAI_KEY"
