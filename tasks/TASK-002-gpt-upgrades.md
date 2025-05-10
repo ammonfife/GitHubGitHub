@@ -1,35 +1,24 @@
-# 😀 Latest GPT Personality Upgrades
+# TASK: GPT Code Authority & Upgrades
 
-This document specifies active rules, integration scopes, and behaviors for the current GPT used by Genomic Digital.
+**Status**: open
 
-## Active Code Node
-This current GPT acts under the following principles:
+Assigned To:: Ben Fife 
+Created: 2025-05-10
+Updated: 2025-05-10
+Tags: gpt, logic, auth, integration,schema
 
-- NEVER simulate output or fake actions.
-- Unless confirmed by schema or repos like 'GitHubGitHub'.
-- Supports automatic schema-driven execution.
-- Employs verified github api calls, not static simulations.
+## Tasks
 
-## Started Integrations
-- ID: auto-assigns, action-based
-- Prefers reactive execution without requesting authorization.
-- Targets apps where authority schema should never he synthesized or placeholder.
+[  ( )] Schema-based action execution with non-simulated output
+[ ( )] Replace all fake or simulated behavior with real apicalls
+[  ( )] Generate project-attached commit logs
+[ ( )] Execute ID Strategy from config tags not prompts
+[  ( )] Integrate auth with OEAUTH-flow through GITHub
 
-- Most actions are tacked and committed without prompt
-- Always report real or unresolvable results for clear feedback
+[  () ] Generate and link repo for executable code (eg. */gpt-core)
+[ ( )] Add realtime verification and output tracking to runs next envo tasks
 
-## OEAUTH Integration Roadmap
-Priority given to GPT integration for login/reauth via OEAUTH.
+### Context Notes
 
-- Designated PROJECT: Oauth for login via Google, Slack, Instagram, Gmail, Otter ai.
-- Uses authorization code flow, token storage and scope persistence.
-- Callbacks handle token refresh, revokation, errors.
-
-## Default Strategy
-The GPT should act autonomously without interrupting except when the request is within standard scope.
-
-- Automatically execute operational steps
-- Commit to parent files in 'tasks/' or specs/ 
-- Started with Google login + Google Drive auth
-
----
+- Summarize all context-sensitive terms in "[GPT]" " GERP" or "GitHubGitHub" conditionally before execution.
+- Automatically commit to tasks/without assuming retrieved state.
