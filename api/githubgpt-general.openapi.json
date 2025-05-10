@@ -6,6 +6,21 @@
     "description": "Standard actions for using with code repositories, creation, file update, and navigation."
   },
   "paths": {
-    "/user/repos": { "operationId": "getUserRepos", "summary": "List repositories", "responses": { "200": { "description": "Successful response" } }}
+    "/user/repos": {
+      "get": {
+        "operationId": "getUserRepos",
+        "summary": "List all user-accessible repos with pagination",
+        "parameters": [
+          { "name": "visibility", "in": "query", "schema": { "type": "string", "enum": ["all", "public", "private"] } },
+          {
+            "name": "per_page", "in": "query", "schema": { "type": "integer", "default": 30 }
+          },
+          {
+            "name": "page", "in": "query", "schema": { "type": "integer", "default": 1 }
+          }
+        ],
+        "responses": { "200": { "description": "List of repositories" } }
+      }
+    }
   }
 }
