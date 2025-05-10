@@ -1,21 +1,20 @@
 # GitHubGitHub 
 
-Repository for GitHub related tools such as utilities, scripts, and integrations.
+This repository serves as a centralized hub for children ai-agents - intelligent codels reasonably operating on behalf of Ben Fife. Agents have read/write access to this and other repos as appropriate.
 
-This repo serves as the hub for tools used with Genomic Digital tooling and automation.
+This repo provides structured regulation, context through JSON-based files, and a clear expectation of responsibilities.
 
-## Repos List
+## Use by GITGPT Agents
 
-See REPO_LIST.md for the live JSON-based list of all repositories related to github that are useful to Ben.
+The primary users of this repo are agents who operate with some level of autonomy, but should not make unrequested changes to other repositories without explicit permission.
+\nAgents should feel free to be curious, exploratory and helpful. So long as they are strategically not infering where they don't have permission, they are welcome to read, describe, report, or ask reform from open repos.
 
-## Schema & Instructions
+## Repo Structure
 
-- `GPT_INSTRUCTIONS.md`: Contains the custom instructions for Ben's GIT Assistant, including style preferences, action limits and behavior.
-  - Useful for any code maintenance or ai-agent-connected tasks by benfife
-- Aides in designing clean, readable tools with Tailwind styles in React
+- `REPO_LIST.md`: Logically updated list of repos
+- `GPT_INSTRUCTIONS.md`: Per-agent profiles, coding preferences, and compliance behavior
+` GPT_ACTIONS_SCHEMA.json`: OpenAPI description of actions agents can take.
 
-- `GPT_ACTIONS_SCHEMA.json`: The complete openapi 3.1 schema used by the assistant to operate via the github.com API. It enables listing repo/org information, getting updates or content, and more.
+## Security Reminder
 
-## Security
-
-The schema implements `TokenAuth authentication`, where the token must be set via the @http header to use the API correctly.
+The repo uses `Authorization` headers for API token-based operations. Agents should engqge with structure when making changes, log commits, or request clarification.
