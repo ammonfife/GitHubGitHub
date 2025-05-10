@@ -1,4 +1,7 @@
 {
+  "servers": [
+    { "url": "https://api.github.com" }
+  ],
   "paths": {
     "/admin/github": {
       "post": {
