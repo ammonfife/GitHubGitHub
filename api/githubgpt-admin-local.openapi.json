@@ -1,0 +1,25 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "GitHub GPT Admin Actions (GPT Builder)",
+    "version": "4.0.0",
+    "description": "Custom actions for admin fallback, token usage authorization, and security"
+  },
+  "servers": [
+    {
+      "url": "https://localhost:8000"
+    }
+  ],
+  "paths": {
+    "/actions/use-admin-openai-key": {
+      "post": {
+        "operationId": "useAdminOpenAIKey",
+        "summary": "Uses admin OpenAI key if access is permitted",
+        "responses": {
+          "200": { "description": "Admin token used" },
+          "403": { "description": "Access failed: not authorized to use admin token" }
+        }
+      }
+    }
+  }
+}
