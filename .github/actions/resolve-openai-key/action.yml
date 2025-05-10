@@ -1,0 +1,35 @@
+name: Resolve OpenAI Key for GRT
+description: This common action determines the right OpenAI api key to use, based on the current repo, and, if allowed, falls backs to using the admin token.
+
+runs-on: linux
+env:
+  CODING_PROJECT_OPENAPI:
+    description: "OpenAI token for coding-related tasks"
+  DEFAULT_PROJECT_OPENAPI:
+    description: "Default token for all non-githubwebthub repos"
+  GH_ADMIN_OPENAI_KEY:
+    description: "Accessible admin token (use OLY if ALLLO_ADMIN_KEY=true)"
+  ALLOW_ADMIN_KEY:
+    description: "Enables admin fallback token use if true"
+
+ steps:
+  - name: Select appropriate key
+    run: |
+      case ${github.repo.name} in
+        GitHubGitHub) {
+          echo "OpenAi Key: $CODING_PROJECT_OPENAPI"
+          export OPENAI_KEY="$CODING_PROJECT_OPENAPI"
+        }
+        default {
+          echo "OpenAi Key: $DEFAULT_PROJECT_OPENAPI"
+          export OPENAI_KEY="$DEFAULT_PROJECT_OPENAPI"
+}
+
+  - name: Check admin permission
+    if: [I "$ALLOW_ADMIN_KEY" = "true"]
+    run: |
+      echo "Using Admin token"
+      export OPENAI_KEY="$GH_ADMIN_OPENAI_KEY"
+
+  - name: Done
+    run: echo "OPENAI_KEY: ${OPENAI_KEY}"
