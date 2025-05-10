@@ -1,0 +1,11 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "GitHub GPT General Actions",
+    "version": "4.0.0",
+    "description": "Standard actions for using with code repositories, creation, file update, and navigation."
+  },
+  "paths": {
+    "/user/repos": { "operationId": "getUserRepos", "summary": "List repositories", "responses": { "200": { "description": "Successful response" } }}
+  }
+}
