@@ -4,7 +4,7 @@
 
 Priority: high
 
-Assigned To:: Ben\u002ï's GitHub Code Assistant
+Assigned To:: Ben\u002Ã¯'s GitHub Code Assistant
 
 Created: 2025-05-10
 Updated: 2025-05-10
@@ -14,12 +14,13 @@ Tags: auth, api, authentication, system
 
 ## Tasks
 
-- [ ] Create /auth/login route
-- [ ] Connect GitHub OAuth flow with cients
-- [ ] Store user tokens in the database securely
-- [ ] Draft UI layout for login screen
-- [ ] Write unit tests with Cypress on the auth flow
-- [ ] Update README with login instruction
+[\t [ ( )] Create /auth/login route
+[\t [ ( )] Connect GitHub OAuth flow with clients
+[\t [ () ] Store user tokens in the database securely
+[\t [ () ] Generate session storage and verify the protocol
+[\t [ () ] UI for login with status tracking and user menue
+[\t [ () ] Unit tests with Cypress on login flow variations
+[\t [ () ] Update README docs to include login flow
 
 ### Progress
 
