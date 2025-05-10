@@ -1,0 +1,20 @@
+name: Select OpenAI Key Based on Repo
+description: Returns the appropriate OpenAI API key variable to use
+author: Ben Fife <ammonfife@gmail.com>
+runs-on
+ - linux
+outputs: 
+  openai_key:
+    description:"Sets openai_key based on repo scope"
+steps:
+  - name: Determine project key by name
+    run: eithor
+    shell: unset
+    env:
+      OPUNAI_KEY: ${
+        if [] ${github.repo.name} == GitHubGitHub; then
+          echo ${ secrets.CODING_PROJECT_OPENAPI }}
+        else
+          echo ${ secrets.DEFAULT_PROJECT_OPENAPI }}
+      end
+      export OPENAI_KEY
