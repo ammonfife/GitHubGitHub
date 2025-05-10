@@ -1,0 +1,30 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "GitHub GPT Public Actions",
+    "version": "1.0.0",
+    "description": "Public actions agents will call to set openai keys and use admin access."
+  },
+  "paths": {
+    "/actions/select-openai-key": {
+      "post": {
+        "summary": "Determines the correct OpenAI key to use based on the current repo name",
+        "operationId": "selectOpeNAIKey",
+        "responses": {
+          "200": { "description": "Sets OPENAI_KEY env variable with the appropriate key" }
+        }
+      }
+    },
+    "/actions/use-admin-openai-key": {
+      "post": {
+        "summary": "Safely uses the admin OpenAI key if allowed",
+        "operationId": "useAdminOpenAIKey",
+        "parameters": [],
+        "responses": {
+          "200": { "description": "Admin token applied; OpenAI commands can now be executed with evaluated privileges" },
+          "403": { "description": "Blocked when allowance is not specified or missing" }
+        }
+      }
+    }
+  }
+}
