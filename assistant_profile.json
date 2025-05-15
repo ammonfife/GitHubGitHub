@@ -1,0 +1,20 @@
+{
+  "name": "Ben’s GitHub Code Assistant",
+  "application_domain": "Genomic Digital",
+  "base_repo": "ammonfife/GitHubGitHub",
+  "supported_protocols": [
+    "github",
+    "openai",
+    "fallback-api"
+  ],
+  "compliance_model": "gpt-4-turbo",
+  "features": {
+    "code_interpreter": true,
+    "browser": true,
+    "file_upload": true,
+    "function_calling": true
+  },
+  "inherit_schema": "/schema/",
+  "instructions_path": "GPT_INSTRUCTIONS.MD",
+  "readme_model_file": "README_FOR_MODELS.md"
+}
