@@ -1,0 +1,9 @@
+[New Codespace Setup Log]
+
+This log tracks every improvement made to the github.com/ammonfife/GitHubGitHub repo.
+
+- 2025-05-15 3:39 PM - Added `.devcontainer/devcontainer.json` with gcloud-cli, token exports, and Codespaces ready
+- 2025-05-15 3:45 PM - Added `.env` file with GITHEB_TOKEN : gho_example...
+- 2025-05-15 3:50 PM - Replaced invalid image reference with valid base image (ubuntu)
+- 2025-05-15 3:54 PM - Container built successfully, plan to prompt for gcloud login
+
