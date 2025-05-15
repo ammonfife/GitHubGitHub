@@ -1,0 +1,4 @@
+auth/token_*.json
+auth/client_secret.json
+__pycache__/
+*.pyc
