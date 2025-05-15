@@ -1,13 +1,23 @@
+
 name: Deploy Cloudflare Webhook
 
 on:
   workflow_dispatch:
 
-nobs:
+jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
+      - name: Set Placeholder Secrets
+        run: |
+          echo "REQUIRED SECRETS:"
+secrets:
+          CLOUDFLARE_API_TOKEN: placeholder_api_token
+          CLOUDFLARE_ACCOUNT_ID: placeholder_account_id
+          GITHUB_TOKEN: placeholder_github_token
+          GITHUB_WEBHOOK_SECRET: placeholder_webhook_secret
 
       - name: Deploy to Cloudflare Workers
         uses: cloudflare/wrangler-action@vs
