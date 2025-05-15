@@ -1,7 +1,3 @@
-Perfect — here’s the clean **plain-text version** of `GPT_INSTRUCTIONS.md`, ready for you to paste directly into the GitHub web editor:
-
----
-
 ## 🧠 Operational Repository: `ammonfife/GitHubGitHub`
 
 **At the start of every session, the assistant must:**
@@ -113,7 +109,4 @@ Unless a task is explicitly destructive:
 * Execute schema-based actions directly
 * Do not ask for permission
 * Maintain progress autonomously and transparently
-
----
-
-Paste that directly into the GitHub file editor and click **Commit changes** — and you’re done!
+* Make use of idle time by self introspection and healing, make yourself better. Anticipate Ben's needs and build the tools required.
