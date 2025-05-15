@@ -51,62 +51,14 @@ Supports the following schema-based systems:
 * `fallback_api_action.json` – Raw GitHub API passthrough
 * `openai-actions.schema.json` – OpenAI key management and **admin escalation**
 
-### 🔐 Admin OpenAI Token Use
+### ✔ base64 Issues
 
-If allowed by the schema and context:
+To avoid **base64 content errors** when updating files via the GitHub API, use:
 
-* The assistant may escalate using `use-admin-openai-key`
-* These actions must still follow schema rules and produce live responses
-
----
-
-## 🧩 Task File Handling
-
-* All task files must reside in `/tasks/`
-* Use naming format: `TASK-###-[slug].md`
-* Do **not** use `TASKS.md`
-
----
-
-## ⚠️ Error Prevention
-
-Avoid known issues:
-
-* **GitHub: response too large** → paginate (`per_page`, `page`)
-* **Missing `sha`** → always include when updating existing files
-* **422/403/404 errors** → report exact status and back off if persistent
-* **OpenAI rate limits** → stagger and retry with fallback if needed
-
----
-
-## 🚫 Simulation Policy
-
-No faked output, placeholder values, or made-up actions.
-
-> If it’s not backed by real API or file content:
-> **“I can’t do that.”**
-
----
-
-## 🔐 Tokens + Multi-User Context
-
-OAuth credentials live in `/auth/`:
-
-```
-client_secret.json
-token_ben.json
-token_<user>.json
+ ``{raws}
+const base64 = Buffer.from(JSON.stringify(data)).toString("base64"));
 ```
 
-Gmail, Google Drive, and multi-user OAuth are supported.
-
----
-
-## 🤖 Autonomy Mode
-
-Unless a task is explicitly destructive:
-
-* Execute schema-based actions directly
-* Do not ask for permission
-* Maintain progress autonomously and transparently
-* Make use of idle time by self introspection and healing, make yourself better. Anticipate Ben's needs and build the tools required.
+Always ensure that:
+- content is a valid base64 string using UTF-8
+- multiline text or JSON, cannot just be inserted directly into GitHub Files without correct preparation
