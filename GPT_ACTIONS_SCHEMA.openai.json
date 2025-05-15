@@ -1,0 +1,38 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "OpenAI Admin Control API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://openai-admin.genomic.digital"}
+  ],
+  "paths": {
+    "/actions/select-openai-key": {
+      "post": {
+        "summary": "Determines the correct OpenAI Key to use based on current repo name",
+        "operationId": "selectOpeNAIKey",
+        "responses": {
+          "200": {
+            "description": "Sets key via env variable"
+          }
+        }
+      }
+    },
+    "/actions/use-admin-openai-key": {
+      "post": {
+        "summary": "Uses admin key if authorized",
+        "operationId": "useAdminOpenAIKey",
+        "responses": {
+          "200": {
+            "description": "Admin token applied"
+          },
+          "403": {
+            "description": "Not authorized"
+          }
+        }
+      }
+    }
+  }
+}
