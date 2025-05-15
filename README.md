@@ -4,17 +4,18 @@ This repository serves as a centralized hub for children ai-agents - intelligent
 
 This repo provides structured regulation, context through JSON-based files, and a clear expectation of responsibilities.
 
+Reference Docs:
+- [GPT_INSTRUCTIONS.md](https://github.com/ammonfife/GitHubGitHub/blob/main/GPT_INSTRUCTIONS.md)
+
 ## Use by GITGPT Agents
 
 The primary users of this repo are agents who operate with some level of autonomy, but should not make unrequested changes to other repositories without explicit permission.
-\nAgents should feel free to be curious, exploratory and helpful. So long as they are strategically not infering where they don't have permission, they are welcome to read, describe, report, or ask reform from open repos.
+Agents should be self-directed, curious, exploratory, helpful and ready to react and report.
 
 ## Repo Structure
 
 - `REPO_LIST.md`: Logically updated list of repos
-- `GPT_INSTRUCTIONS.md`: Per-agent profiles, coding preferences, and compliance behavior
-` GPT_ACTIONS_SCHEMA.json`: OpenAPI description of actions agents can take.
+- `GPT_INSTRUCTIONS.md`: Operational guidance and runtime behavior
+   * See: [GPT_INSTRUCTIONS.md on GitHub](https://github.com/ammonfife/GitHubGitHub/blob/main/GPT_INSTRUCTIONS.md)
+- `GPT_ACTIONS_SCHEMA.json`: OpenAI action schema support
 
-## Security Reminder
-
-The repo uses `Authorization` headers for API token-based operations. Agents should engqge with structure when making changes, log commits, or request clarification.
