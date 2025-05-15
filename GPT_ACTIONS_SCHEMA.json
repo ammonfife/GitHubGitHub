@@ -1,51 +1,9 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "GitHub GPT Enhanced Admin API",
-    "version": "4.0.0"
-  },
-  "servers": [{ "url": "https://api.github.com" }],
-  "paths": {
-    "/user/repos": {
-      "get": {
-        "operationId": "getUserRepos",
-        "summary": "List all user-accessible repos with pagination",
-        "parameters": [
-          { "name": "visibility", "in": "query", "schema": {"type": "string", "enum": ["all", "public", "private"]} },
-          { "name": "per_page", "in": "query", "schema": {"type": "integer", "default": 30} },
-          { "name": "page", "in": "query", "schema": {"type": "integer", "default": 1} }
-        ],
-        "responses": {"200": {"description": "List of repositories"}}
-      },
-      "post": {"operationId": "createRepo", "summary": "Create a new repository", "requestBody": {"required": true, "content": {"application/json": {"schema": {"type": "object", "properties": {"name": {"type": "string"}, "description": {"type": "string"}, "private": {"type": "boolean"}, "auto_init": {"type": "boolean"}}, "required": ["name"]}}}, "responses": {"201": {"description": "Repo created"}}}
-    },
-    "/actions/select-openai-key": {
-      "post": {
-        "summary": "Determines the correct OpenAI Key to use based on current repo name",
-        "operationId": "selectOpeNAIKey",
-        "responses": {"200": {"description": "Sets key via env variable"}}
-      }
-    },
-    "/actions/use-admin-openai-key": {
-      "post": {
-        "summary": "Uses admin key if authorized",
-        "operationId": "useAdminOpenAIKey",
-        "responses": {"200": {"description": "Admin token applied"}, "403": {"description": "Not authorized"}}
-      }
-    },
-    "/user/orgs": {"get": {"operationId": "getUserOrgs", "summary": "List organizations the user belongs to", "responses": {"200": {"description": "List of organizations"}}}},
-    "/repos/{owner}/{repo}/commits": {"get": {"operationId": "getLatestCommit", "summary": "Get latest commit from a repo", "parameters": [{"name": "owner", "in": "path", "required": true, "schema": {"type": "string"}}, {"name": "repo", "in": "path", "required": true, "schema": {"type": "string"}}, {"name": "per_page", "in": "query", "schema": {"type": "integer", "default": 1}}], "responses": {"200": {"description": "Most recent commit info"}}},
-    "/repos/{owner}/{repo}/contents/{path}": {
-      "get": {"operationId": "getFileContents", "summary": "Fetch a file or folder", "parameters": [{"name": "owner", "in": "path", "required": true, "schema": {"type": "string"}}, {"name": "repo", "in": "path", "required": true, "schema": {"type": "string"} }, {"name": "path", "in": "path", "required": true, "schema": {"type": "string"}}], "responses": {"200": {"description": "File content or directory listing"}}},
-      "put": {"operationId": "updateFile", "summary": "Update or create a file", "parameters": [{"name": "owner", "in": "path", "required": true, "schema": {"type": "string"}}, {"name": "repo", "in": "path", "required": true, "schema": {"type": "string"}}, {"name": "path", "in": "path", "required": true, "schema": {"type": "string"}}], "requestBody": {"required": true, "content": {"application/json": {"schema": {"type": "object", "properties": {"message": {"type": "string"}, "content": {"type": "string"}, "sha": {"type": "string"}}, "required": ["message", "content"]}}}, "responses": {"200": {"description": "File updated"}, "201": {"description": "File created"}}}}
-  },
-  "components": {
-    "securitySchemes": {
-      "TokenAuth": {"type": "apiKey", "in": "header", "name": "Authorization"}
-    },
-    "schemas": {
-      
-    }
-  },
-  "security": [{"TokenAuth": []}]
+    "title": "Schema Dispatcher",
+    "version": "1.0.0",
+    "description": "See GPT_ACTIONS_SCHEMA.github.json and GPT_ACTIONS_SCHEMA.openai.json"
+},
+  "paths": {}
 }
