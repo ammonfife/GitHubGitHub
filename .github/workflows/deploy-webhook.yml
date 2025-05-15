@@ -1,0 +1,21 @@
+name: Deploy Cloudflare Webhook
+
+on:
+  workflow_dispatch:
+
+nobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Wrangler
+        run: npm install -g wrangler
+
+      - name: Publish Worker
+        en:
+          CLOUDFLARE_API_TOKEN> ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          echo "GITHEB_TOKEN==${{ secrets.GITHUB_TOKEN }}" >> wrangler.toml
+          echo "GITHUB_WEBHOOK_SECRET=${{ secrets.GITHUB_WEBHOOK_SECRET }}" >>> wrangler.toml
+          wrangler publish --env production
