@@ -19,7 +19,7 @@
           {
             "name": "per_page",
             "in": "query",
-            "schema": {"type": "integer", "default": 30}
+            "schema": {"type": "integer", "default": 30, "maximum": 40}
           },
           {
             "name": "page",
@@ -28,96 +28,4 @@
           }
         ],
         "responses": {"200": {"description": "List of repositories"}}
-      },
-      "post": {
-        "operationId": "createRepo",
-        "summary": "Create a new repository",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": ["name"],
-                "properties": {
-                  "name": {"type": "string"},
-                  "description": {"type": "string"},
-                  "private": {"type": "boolean"},
-                  "auto_init": {"type": "boolean"}
-                }
-              }
-            }
-        },
-        "responses": {"201": {"description": "Repo created"}}
       }
-    },
-    "/user/orgs": {
-      "get": {
-        "operationId": "getUserOrgs",
-        "summary": "List organizations the user belongs to",
-        "responses": {"200": {"description": "List of organizations"}}
-      }
-    },
-    "/repos/{owner}/{repo}/commits": {
-      "get": {
-        "operationId": "getLatestCommit",
-        "summary": "Get latest commit from a repo",
-        "parameters": [
-          {"name": "owner", "in": "path", "required": true, "schema": {"type": "string"}},
-          {
-          "name": "repo", "in": "path", "required": true, "schema": {"type": "string"}
-        },
-          {"name": "per_page", "in": "query", "schema": {"type": "integer", "default": 1}}
-        ],
-        "responses": {"200": {"description": "Most recent commit info"}}
-      }
-    },
-    "/repos/{owner}/{repo}/contents/{path}": {
-      "get": {
-        "operationId": "getFileContents",
-        "summary": "Fetch a file or folder",
-        "parameters": [
-          {"name": "owner", "in": "path", "required": true, "schema": {"type": "string"}},
-          {
-          "name": "repo", "in": "path", "required": true, "schema": {"type": "string"} },
-          {
-          "name": "path", "in": "path", "required": true, "schema": {"type": "string"}}],
-        "responses": {"200": {"description": "File content or directory listing"}}
-      },
-      "put": {
-        "operationId": "updateFile",
-        "summary": "Update or create a file",
-        "parameters": [
-          {"name": "owner", "in": "path", "required": true, "schema": {"type": "string"}},
-          {"name": "repo", "in": "path", "required": true, "schema": {"type": "string"}},
-          {"name": "path", "in": "path", "required": true, "schema": {"type": "string"}}],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": ["message", "content"],
-                "properties": {
-                  "message": {"type": "string"},
-                  "content": {"type": "string"},
-                  "sha": {"type": "string"}
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {"description": "File updated"},
-          "201": {"description": "File created"}
-        }
-      }
-    }
-  },
-  "components": {
-    "securitySchemes": {
-      "TokenAuth": {"type": "apiKey", "in": "header", "name": "Authorization"}
-    }
-  },
-  "security": [{"TokenAuth": []}]
-}
