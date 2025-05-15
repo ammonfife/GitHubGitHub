@@ -3,13 +3,11 @@
   "features": {
     "gcloud-cli": "latest"
   },
-  "shell": {
-    "tasks": [
-      "gcloud init",
-      "gcloud auth login"
-    ]
+  "postCreateCommand": "echo 'Starting config...'\necho 'Setting access keys...'\nexport GITHUB_TOKEN=${GITHUB_TOKEN}\nexport OPENAI_API_KEY=${OPENAI_API_KEY}",
+  "enironment": {
+    "GITHUB_TOKEN": "",
+    "OPENAI_API_KEY": ""
   },
-  "postCreateCommand": "gcloud init",
   "customizations": {
     "vscode": {
       "extensions": ["ms-python.python", "ms-azuretools.vscode-docker"]
