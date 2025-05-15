@@ -1,0 +1,18 @@
+{
+  "image": "ghcr.io/devcontainers/devcontainer/features/gcloud-cli:latest",
+  "features": {
+    "gcloud-cli": "latest"
+  },
+  "shell": {
+    "tasks": [
+      "gcloud init",
+      "gcloud auth login"
+    ]
+  },
+  "postCreateCommand": "gcloud init",
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-python.python", "ms-azuretools.vscode-docker"]
+    }
+  }
+}
