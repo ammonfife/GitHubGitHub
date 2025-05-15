@@ -9,12 +9,14 @@ nobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install Wrangler
-        run: npm install -g wrangler
-
-      - name: Set Secrets
-        run: |
-          wrangler secret put GITHUB_TOKEN --env production --non-interactive --value="${{ secrets.GITHUB_TOKEN }}"
-          wrangler secret put GITHUB_WEBHOOK_SECRET --env production --non-interactive --value="${{ secrets.GITHUB_WEBHOOK_SECRET }}"
-      - name: Publish Worker
-        run: wrangler publish --env production
+      - name: Deploy to Cloudflare Workers
+        uses: cloudflare/wrangler-action@vs
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          secrets: |
+            GITHUB_TOKEN
+            GITHUB_WEBHOOK_SECRET
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_WEBHOOK_SECRET: ${{ secrets.GITHUB_WEBHOOK_SECRET }}
