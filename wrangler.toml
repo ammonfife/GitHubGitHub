@@ -1,0 +1,23 @@
+
+name = "github-repo-webhook"
+main = "index.js"
+type = "javascript"
+
+[vars]
+# These must be configured via the Cloudflare dashboard or Wrangler secrets
+# Do NOT hardcode secrets or tokens in this file
+GITHUB_TOKEN = ""
+GITHUB_WEBHOOK_SECRET = ""
+
+
+env.production
+workers_dev = true
+compatibility_date = "2025-05-15"
+
+[build]
+upload.format = "modules"
+
+# NOTE:
+# - To avoid base64 errors when updating GitHub files, use:
+#   Buffer.from(JSON.stringify(data)).toString("base64")
+# - Enable multiline JSON or yaml content to be used without encoding failures
