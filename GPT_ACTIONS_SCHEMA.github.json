@@ -7,4 +7,34 @@
   "servers": [
     { "url": "https://api.github.com" }
   ],
-  "paths": { "/user/repos": { "get": { "operationId": "getUserRepos", "summary": "List all user-accessible repo", "parameters": [{"name": "visibility", "in": "query", "schema": {"type": "string", "enum": ["all", "public", "private"]}}, {"name": "per_page", "in": "query", "schema": {"type": "integer", "default": 30}}, {"name": "page", "in": "query", "schema": {"type": "integer", "default": 1}}], "responses": {"200": {"description": "List of repositories"}}}, "post": { "operationId": "createRepo", "summary": "Create a new repo", "requestBody": {"required": true, "content": {"application/json": {"schema": {"type": "object", "required": ["name"], "properties": {"name": {"type": "string"}, "description": {"type": "string"}, "private": {"type": "boolean"}, "auto_init": {"type": "boolean"}}}}}, "responses": {"201": {"description": "Repo created"}}}}}}
+  "paths": {
+    "/user/repos": {
+      "get": { "operationId": "getUserRepos", "summary": "List all user-accessible repositories", "parameters": [{"name": "visibility", "in": "query", "schema": {"type": "string", "enum": ["all", "public", "private"]}}, {"name": "per_page", "in": "query", "schema": {"type": "integer", "default": 30}}, {"name": "page", "in": "query", "schema": {"type": "integer", "default": 1}}], "responses": {"200": {"description": "List of repositories"}}},
+      "post": { "operationId": "createRepo", "summary": "Create a new repository", "requestBody": {"required": true, "content": {"application/json": {"schema": {"type": "object", "required": ["name"], "properties": {"name": {"type": "string"}, "description": {"type": "string"}, "private": {"type": "boolean"}, "auto_init": {"type": "boolean"}}}}}, "responses": {"201": {"description": "Repo created"}}}},
+    "/admin/github": {
+      "post": {
+        "summary": "Fallback GitHub API call using Ben's token",
+        "operationId": "customGithubFallback",
+        "x-fallback": true,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "method": { "type": "string" },
+                  "url": { "type": "string" },
+                  "body": { "type": "object" }
+                },
+                "required": ["method", "url"]
+              }
+          }
+        },
+        "responses": {
+          "200": { "description": "GitHub API response from fallback"}
+        }
+      }
+    }
+  }
+}
