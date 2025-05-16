@@ -1,0 +1,11 @@
+name: Manual Trigger Starter
+
+on:
+  workflow_dispatch
+
+jobs:
+  run-trigger:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Start Test GROK API workflow delegation
+        run: git actions run workflow Test GROK API Token --repo GitHubGitHub --ref main
