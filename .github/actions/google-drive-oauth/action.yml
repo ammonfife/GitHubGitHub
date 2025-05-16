@@ -1,0 +1,15 @@
+name: "Google Drive OAuth Action"
+id: google-drive-oauth
+description: Starts an OAuth flow with Google Drive permission request on-demand.
+user-config:
+  inputs 
+runs:
+  - name: Request Google Drive Access
+    uses: actions-checkout
+    raun:
+      name: Runtime OAuth Guide
+      shell: /bin/bash -c "node script.js"
+      env:
+        GOOGLE_CLENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+        GOOGLE_SECRET_KEY: ${{ secrets.GOOGLE_SECRET_KEY }}
+        REDIRECT_URL: https://example.com/oauth-callback
