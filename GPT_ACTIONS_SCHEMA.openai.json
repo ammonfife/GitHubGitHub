@@ -1,35 +1,37 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "OpenAI Admin Control API",
+    "title": "GitHub GPT OpenAI Actions",
     "version": "1.0.0"
-  },
+},
   "servers": [
     {
-      "url": "https://openai-admin.genomic.digital"}
+      "url": "https://api.openai.com/v1"
+    }
   ],
   "paths": {
     "/actions/select-openai-key": {
       "post": {
-        "summary": "Determines the correct OpenAI Key to use based on current repo name",
+        "summary": "Determines the correct OpenAI key to use based on the current repo name",
         "operationId": "selectOpeNAIKey",
         "responses": {
           "200": {
-            "description": "Sets key via env variable"
+            "description": "Sets OPENAI_KEY env variable with the appropriate key"
           }
         }
       }
     },
     "/actions/use-admin-openai-key": {
       "post": {
-        "summary": "Uses admin key if authorized",
+        "summary": "Safely uses admin OpenAI key if allowed",
         "operationId": "useAdminOpenAIKey",
+        "parameters": [],
         "responses": {
           "200": {
-            "description": "Admin token applied"
+            "description": "Admin token applied; OpenAI commands can now be executed with evaluated privileges"
           },
           "403": {
-            "description": "Not authorized"
+            "description": "Blocked when allowance is not specified or missing"
           }
         }
       }
