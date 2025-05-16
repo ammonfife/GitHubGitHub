@@ -36,7 +36,10 @@
     "version": "1.0.0",
     "compatibility": "OpenAI 2024 Core + Assistants APIs",
     "exported_by": "OpenAPI Builder",
-    "optimized_for": "under 1MB specification use"
+    "optimized_for": "under 1MB specification use",
+    "headers": {
+      "OpenAI-Beta": "assistants=v2"
+    }
   },
   "x-model-routing": {"...": "..."}
 }
