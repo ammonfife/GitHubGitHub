@@ -1,9 +1,9 @@
 name: Google Drive OAuth Workflow
 
-on
+on:
   workflow_dispatch:
 
-jwkbs:
+jobs:
   oauth-drive:
     runs:
       - name: Request OpenSession
