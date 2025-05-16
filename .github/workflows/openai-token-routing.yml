@@ -1,13 +1,13 @@
 name: openai-token-routing
-with:
-  on-pull: manual
-  workflows:
-    default:
-      name: Token Router
-      runs: - name: Check Scope
+schedule:
+  - cron: "* /2 * * *"
+jobs: 
+  default:
+    name: Token Router
+    runs: 
+      - name: Check Scope
         run: echo "Selecting key based on repo"
 
-        // Select appropriate key based on the context
         - name: Set OpenAI Key
         if: github.repo.name == 'GitHubGitHub'
         env:
