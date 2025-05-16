@@ -1,15 +1,9 @@
-
-
-
-
-
-json
 {
   "openapi": "3.1.0",
   "info": {
     "title": "GitHub GPT General Actions",
-    "version": "4.0.0",
-    "description": "Standard actions for using with code repositories, creation, file update, and navigation."
+    "version": "4.1.0",
+    "description": "Standard actions for use with code repositories, including creation, file update, and navigation. Designed for ChatGPT Gizmo Actions."
   },
   "servers": [
     {
@@ -57,122 +51,92 @@ json
     "/chat/completions": {
       "post": {
         "summary": "Create a chat completion",
-        "operationId": "createChatCompletion",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "model": {
-                    "type": "string",
-                    "enum": ["gpt-4", "gpt-4-turbo", "gpt-3.5-turbo", "gpt-3.5-turbo-1106"],
-                    "default": "gpt-4-turbo"
-                  },
-                  "messages": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "role": {"type": "string"},
-                        "content": {"type": "string"}
-                      },
-                      "required": ["role", "content"]
-                    }
-                  }
-                },
-                "required": ["model", "messages"]
-              }
+              "schema": { "$ref": "#/components/schemas/ChatCompletionRequest" }
             }
           }
         },
         "responses": {
-          "200": {"description": "Chat completion"}
+          "200": {
+            "description": "Chat completion",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ChatCompletionResponse" }
+              }
+            }
+          }
         }
       }
     },
-    "/completions": {
+    "/text/completions": {
       "post": {
-        "summary": "Create text completion",
-        "operationId": "createCompletion",
+        "summary": "Create a text completion",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "model": {
-                    "type": "string",
-                    "enum": ["text-davinci-003", "text-curie-001"],
-                    "default": "text-davinci-003"
-                  },
-                  "prompt": {"type": "string"}
-                },
-                "required": ["model", "prompt"]
-              }
+              "schema": { "$ref": "#/components/schemas/TextCompletionRequest" }
             }
           }
         },
         "responses": {
-          "200": {"description": "Text completion"}
+          "200": {
+            "description": "Text completion",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TextCompletionResponse" }
+              }
+            }
+          }
         }
       }
     },
-    "/edits": {
+    "/text/edits": {
       "post": {
-        "summary": "Create text edit",
-        "operationId": "createEdit",
+        "summary": "Edit text",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "model": {"type": "string"},
-                  "input": {"type": "string"},
-                  "instruction": {"type": "string"}
-                },
-                "required": ["model", "instruction"]
-              }
+              "schema": { "$ref": "#/components/schemas/TextEditRequest" }
             }
           }
         },
         "responses": {
-          "200": {"description": "Text edit"}
+          "200": {
+            "description": "Text edit result",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TextEditResponse" }
+              }
+            }
+          }
         }
       }
     },
     "/embeddings": {
       "post": {
-        "summary": "Create embeddings",
-        "operationId": "createEmbedding",
+        "summary": "Create embedding",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "model": {
-                    "type": "string",
-                    "enum": ["text-embedding-ada-002"],
-                    "default": "text-embedding-ada-002"
-                  },
-                  "input": {
-                    "type": "array",
-                    "items": {"type": "string"}
-                  }
-                },
-                "required": ["model", "input"]
-              }
+              "schema": { "$ref": "#/components/schemas/EmbeddingRequest" }
             }
           }
         },
         "responses": {
-          "200": {"description": "Embedding result"}
+          "200": {
+            "description": "Embedding result",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/EmbeddingResponse" }
+              }
+            }
+          }
         }
       }
     },
@@ -181,14 +145,14 @@ json
         "summary": "List files",
         "operationId": "listFiles",
         "responses": {
-          "200": {"description": "List of files"}
+          "200": { "description": "List of files" }
         }
       },
       "post": {
         "summary": "Upload file",
         "operationId": "uploadFile",
         "responses": {
-          "200": {"description": "File uploaded"}
+          "200": { "description": "File uploaded" }
         }
       }
     },
@@ -197,20 +161,20 @@ json
         "summary": "Retrieve file metadata",
         "operationId": "getFile",
         "parameters": [
-          {"name": "file_id", "in": "path", "required": true, "schema": {"type": "string"}}
+          { "name": "file_id", "in": "path", "required": true, "schema": { "type": "string" } }
         ],
         "responses": {
-          "200": {"description": "File metadata"}
+          "200": { "description": "File metadata" }
         }
       },
       "delete": {
         "summary": "Delete file",
         "operationId": "deleteFile",
         "parameters": [
-          {"name": "file_id", "in": "path", "required": true, "schema": {"type": "string"}}
+          { "name": "file_id", "in": "path", "required": true, "schema": { "type": "string" } }
         ],
         "responses": {
-          "200": {"description": "File deleted"}
+          "200": { "description": "File deleted" }
         }
       }
     },
@@ -219,10 +183,10 @@ json
         "summary": "Retrieve file content",
         "operationId": "getFileContent",
         "parameters": [
-          {"name": "file_id", "in": "path", "required": true, "schema": {"type": "string"}}
+          { "name": "file_id", "in": "path", "required": true, "schema": { "type": "string" } }
         ],
         "responses": {
-          "200": {"description": "File content"}
+          "200": { "description": "File content" }
         }
       }
     },
@@ -231,14 +195,14 @@ json
         "summary": "List fine-tuning jobs",
         "operationId": "listFineTuningJobs",
         "responses": {
-          "200": {"description": "Jobs"}
+          "200": { "description": "Jobs" }
         }
       },
       "post": {
         "summary": "Create fine-tuning job",
         "operationId": "createFineTuningJob",
         "responses": {
-          "200": {"description": "Job started"}
+          "200": { "description": "Job started" }
         }
       }
     },
@@ -247,10 +211,10 @@ json
         "summary": "Retrieve fine-tuning job",
         "operationId": "getFineTuningJob",
         "parameters": [
-          {"name": "fine_tuning_job_id", "in": "path", "required": true, "schema": {"type": "string"}}
+          { "name": "fine_tuning_job_id", "in": "path", "required": true, "schema": { "type": "string" } }
         ],
         "responses": {
-          "200": {"description": "Job details"}
+          "200": { "description": "Job details" }
         }
       }
     },
@@ -259,10 +223,10 @@ json
         "summary": "List job events",
         "operationId": "listFineTuningEvents",
         "parameters": [
-          {"name": "fine_tuning_job_id", "in": "path", "required": true, "schema": {"type": "string"}}
+          { "name": "fine_tuning_job_id", "in": "path", "required": true, "schema": { "type": "string" } }
         ],
         "responses": {
-          "200": {"description": "Events"}
+          "200": { "description": "Events" }
         }
       }
     },
@@ -271,7 +235,7 @@ json
         "summary": "Transcribe audio",
         "operationId": "transcribeAudio",
         "responses": {
-          "200": {"description": "Transcript"}
+          "200": { "description": "Transcript" }
         }
       }
     },
@@ -280,7 +244,7 @@ json
         "summary": "Translate audio",
         "operationId": "translateAudio",
         "responses": {
-          "200": {"description": "Translation"}
+          "200": { "description": "Translation" }
         }
       }
     },
@@ -289,7 +253,7 @@ json
         "summary": "Generate image",
         "operationId": "generateImage",
         "responses": {
-          "200": {"description": "Image"}
+          "200": { "description": "Image" }
         }
       }
     },
@@ -298,7 +262,7 @@ json
         "summary": "Edit image",
         "operationId": "editImage",
         "responses": {
-          "200": {"description": "Edited image"}
+          "200": { "description": "Edited image" }
         }
       }
     },
@@ -307,7 +271,7 @@ json
         "summary": "Create image variation",
         "operationId": "createImageVariation",
         "responses": {
-          "200": {"description": "Variation"}
+          "200": { "description": "Variation" }
         }
       }
     },
@@ -316,7 +280,7 @@ json
         "summary": "List models",
         "operationId": "listModels",
         "responses": {
-          "200": {"description": "Models"}
+          "200": { "description": "Models" }
         }
       }
     },
@@ -325,10 +289,189 @@ json
         "summary": "Retrieve model",
         "operationId": "getModel",
         "parameters": [
-          {"name": "model_id", "in": "path", "required": true, "schema": {"type": "string"}}
+          { "name": "model_id", "in": "path", "required": true, "schema": { "type": "string" } }
         ],
         "responses": {
-          "200": {"description": "Model info"}
+          "200": { "description": "Model info" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ChatCompletionRequest": {
+        "type": "object",
+        "properties": {
+          "model": {
+            "type": "string",
+            "enum": [
+              "gpt-4",
+              "gpt-4-turbo",
+              "gpt-3.5-turbo",
+              "gpt-3.5-turbo-1106"
+            ],
+            "default": "gpt-4-turbo"
+          },
+          "messages": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "role": { "type": "string", "enum": ["system", "user", "assistant"] },
+                "content": { "type": "string" }
+              },
+              "required": ["role", "content"]
+            }
+          }
+        },
+        "required": ["model", "messages"]
+      },
+      "ChatCompletionResponse": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "object": { "type": "string" },
+          "created": { "type": "integer" },
+          "choices": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "index": { "type": "integer" },
+                "message": {
+                  "type": "object",
+                  "properties": {
+                    "role": { "type": "string" },
+                    "content": { "type": "string" }
+                  }
+                },
+                "finish_reason": { "type": "string" }
+              }
+            }
+          },
+          "usage": {
+            "type": "object",
+            "properties": {
+              "prompt_tokens": { "type": "integer" },
+              "completion_tokens": { "type": "integer" },
+              "total_tokens": { "type": "integer" }
+            }
+          }
+        }
+      },
+      "TextCompletionRequest": {
+        "type": "object",
+        "properties": {
+          "model": {
+            "type": "string",
+            "enum": ["text-davinci-003", "text-curie-001"],
+            "default": "text-davinci-003"
+          },
+          "prompt": { "type": "string" }
+        },
+        "required": ["model", "prompt"]
+      },
+      "TextCompletionResponse": {
+        "type": "object",
+        "properties": {
+          "object": { "type": "string" },
+          "created": { "type": "integer" },
+          "choices": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": { "type": "string" },
+                "index": { "type": "integer" },
+                "finish_reason": { "type": "string" }
+              }
+            }
+          },
+          "usage": {
+            "type": "object",
+            "properties": {
+              "prompt_tokens": { "type": "integer" },
+              "completion_tokens": { "type": "integer" },
+              "total_tokens": { "type": "integer" }
+            }
+          }
+        }
+      },
+      "TextEditRequest": {
+        "type": "object",
+        "properties": {
+          "model": { "type": "string" },
+          "input": { "type": "string" },
+          "instruction": { "type": "string" }
+        },
+        "required": ["model", "instruction"]
+      },
+      "TextEditResponse": {
+        "type": "object",
+        "properties": {
+          "object": { "type": "string" },
+          "created": { "type": "integer" },
+          "choices": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": { "type": "string" },
+                "index": { "type": "integer" }
+              }
+            }
+          },
+          "usage": {
+            "type": "object",
+            "properties": {
+              "prompt_tokens": { "type": "integer" },
+              "completion_tokens": { "type": "integer" },
+              "total_tokens": { "type": "integer" }
+            }
+          }
+        }
+      },
+      "EmbeddingRequest": {
+        "type": "object",
+        "properties": {
+          "model": {
+            "type": "string",
+            "enum": ["text-embedding-ada-002"],
+            "default": "text-embedding-ada-002"
+          },
+          "input": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["model", "input"]
+      },
+      "EmbeddingResponse": {
+        "type": "object",
+        "properties": {
+          "object": { "type": "string" },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "embedding": {
+                  "type": "array",
+                  "items": { "type": "number" }
+                },
+                "index": { "type": "integer" },
+                "object": { "type": "string" }
+              }
+            }
+          },
+          "model": { "type": "string" },
+          "usage": {
+            "type": "object",
+            "properties": {
+              "prompt_tokens": { "type": "integer" },
+              "total_tokens": { "type": "integer" }
+            }
+          }
         }
       }
     }
@@ -350,11 +493,11 @@ json
     },
     "dynamic_model_resolution": {
       "patterns": [
-        {"match": "gpt-4-turbo", "task": "chat"},
-        {"match": "gpt-4", "task": "chat-deep"},
-        {"match": "gpt-3.5.*", "task": "chat-fast"},
-        {"match": "text-davinci.*", "task": "text-complete"},
-        {"match": "text-embedding.*", "task": "embedding"}
+        { "match": "gpt-4-turbo", "task": "chat" },
+        { "match": "gpt-4", "task": "chat-deep" },
+        { "match": "gpt-3.5.*", "task": "chat-fast" },
+        { "match": "text-davinci.*", "task": "text-complete" },
+        { "match": "text-embedding.*", "task": "embedding" }
       ]
     },
     "fallback_reroute": {
