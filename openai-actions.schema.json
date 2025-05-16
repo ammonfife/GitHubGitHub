@@ -16,12 +16,16 @@
   ],
   "tags": [
     {"name": "Chat"},
-    {"name": "Embedding"},
+    {"name": "Completion"},
+    {
+      "name": "Embedding"
+    },
+    {
+      "name": "Edit"
+    },
     {"name": "File"},
-    {
-      "name": "Model"},
-    {
-      "name": "Moderation"},
+    {"name": "Model"},
+    {"name": "Moderation"},
     {"name": "Assistant"},
     {"name": "Thread"},
     {"name": "Run"}
@@ -38,10 +42,21 @@
     },
     "model_set": {
       "chat": "gpt-4o",
+      "chat-fast": "gpt-3.5-turbo",
+      "chat-deep": "gpt-4",
       "embed": "text-embedding-3-large",
       "image": "dall-e-3",
       "transcribe": "whisper-1"
     }
   },
-  "x-model-routing": {"...": "..."}
+  "x-model-routing": {
+    "model_selector": {
+      "chat": "gpt-4o",
+      "chat-fast": "gpt-3.5-turbo",
+      "chat-deep": "gpt-4",
+      "embed": "text-embedding-3-small",
+      "image": "dall-e-3",
+      "transcribe": "whisper-1"
+    }
+  }
 }
