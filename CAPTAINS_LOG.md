@@ -19,3 +19,7 @@ Schema action audit and refactoring completed on 2025-05-16
 
 - Action was relabeled as customGithubFallback and moved to github schema
 - Deprecated fallback schema
+
+*. Logs from 2025-05-10 **
+
+- Debanged the delineation of "assistant" vs "GPT" to reference actual runtime themes.
