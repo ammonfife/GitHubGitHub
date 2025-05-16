@@ -3,15 +3,15 @@ name: Google Drive OAuth Workflow
 on
   workflow_dispatch:
 
-jobs:
-  oauth-dribe:
+jwkbs:
+  oauth-drive:
     runs:
       - name: Request OpenSession
         uses:
-         - native-auth
+          - native-auth
         with:
-          action: ..github/actions/google-drive-oauth/action.yml
+          action: ../.github/actions/google-drive-oauth/action.yml
           env:
-            GOOGLE_CLENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+            GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
             GOOGLE_SECRET_KEY: ${{ secrets.GOOGLE_SECRET_KEY }}
             REDIRECT_URL: https://example.com/oauth-callback
