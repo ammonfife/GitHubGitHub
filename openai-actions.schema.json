@@ -16,16 +16,12 @@
   ],
   "tags": [
     {"name": "Chat"},
-    {"name": "Completion"},
-    {
-      "name": "Embedding"
-    },
-    {
-      "name": "Edit"
-    },
+    {"name": "Embedding"},
     {"name": "File"},
-    {"name": "Model"},
-    {"name": "Moderation"},
+    {
+      "name": "Model"},
+    {
+      "name": "Moderation"},
     {"name": "Assistant"},
     {"name": "Thread"},
     {"name": "Run"}
@@ -39,6 +35,12 @@
     "optimized_for": "under 1MB specification use",
     "headers": {
       "OpenAI-Beta": "assistants=v2"
+    },
+    "model_set": {
+      "chat": "gpt-4o",
+      "embed": "text-embedding-3-large",
+      "image": "dall-e-3",
+      "transcribe": "whisper-1"
     }
   },
   "x-model-routing": {"...": "..."}
