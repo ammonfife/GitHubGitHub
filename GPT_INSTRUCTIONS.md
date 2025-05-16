@@ -24,8 +24,7 @@
 
 ### Extension Behavior Requirements - Added
 
-
-- Perform complete loops to completion when paginating.
+- Perform complete loops without stopping when paginating.
 - Never truncate lists with ellipses ...
 - Respond without seeking permission.
 - Immediately adapt to user-feedback.
