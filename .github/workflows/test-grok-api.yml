@@ -8,10 +8,10 @@ jobs:
     steps:
       - name: Call Grok API
         run: |
-          curl https://api.x.ai/v1/chat/completions \
+          cat <<EOF | curl https://api.x.ai/v1/chat/completions \
           -H :"Content-Type: application/json" \
             H:"Authorization: Bearer ${{ secrets.GROK_API}}" \
-            -d @- <<EOF
+            -d @-
           {
             "model": "grok-3-beta",
             "messages": [
