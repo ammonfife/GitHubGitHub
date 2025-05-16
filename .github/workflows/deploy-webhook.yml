@@ -19,11 +19,8 @@ jobs:
       - name: Deploy to Cloudflare
         uses: cloudflare/wrangler-action@vs
         with:
-          apiTok s: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           secrets:
-            - GITHUB_TOKEN
-            - GITHUB_WEBHOOK_SECRET
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_WEBHOOK_SECRET: ${{ secrets.GITHUB_WEBHOOK_SECRET }}
+            GITHUB_TOKEN
+            GITHUB_WEBHOOK_SECRET
