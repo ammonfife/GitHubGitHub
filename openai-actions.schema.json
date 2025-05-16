@@ -1,32 +1,42 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "GitHub GPT Public Actions",
-    "version": "1.0.0",
-    "description": "Public actions agents will call to set openai keys and use admin access."
-  },
-  "paths": {
-    "/actions/select-openai-key": {
-      "post": {
-        "summary": "Determines the correct OpenAI key to use based on the current repo name",
-        "operationId": "selectOpeNAIKey",
-        "responses": {
-          "200": { "description": "Sets OPENAI_KEY env variable with the appropriate key" }
-        }
-      }
-    },
-    "/actions/use-admin-openai-key": {
-      "post": {
-        "summary": "Safely uses the admin OpenAI key if allowed",
-        "operationId": "useAdminOpenAIKey",
-        "parameters": [],
-        "responses": {
-          "200": { "description": "Admin token applied; OpenAI commands can now be executed with evaluated privileges" },
-          "403": { "description": "Blocked when allowance is not specified or missing" }
-        }
-      }
+    "title": "OpenAI GPT General Actions",
+    "version": "4.1.0",
+    "description": "Standard actions for use with code repositories, including creation, file update, and navigation. Designed for ChatGPT Gizmo Actions.",
+    "contact": {
+      "name": "OpenAI",
+      "url": "https://platform.openai.com/docs"
     }
   },
-  "components": {"schemas": {}, "securitySchemes": {"TokenAuth": {"type": "apiKey", "in": "header", "name": "Authorization"}}},
-  "security": [{ "TokenAuth": [] }]
+  "servers": [
+    {
+      "url": "https://api.openai.com/v1"
+    }
+  ],
+  "tags": [
+    {"name": "Chat"},
+    {"name": "Completion"},
+    {
+      "name": "Embedding"
+    },
+    {
+      "name": "Edit"
+    },
+    {"name": "File"},
+    {"name": "Model"},
+    {"name": "Moderation"},
+    {"name": "Assistant"},
+    {"name": "Thread"},
+    {"name": "Run"}
+  ],
+  "paths": {},
+  "components": {"schemas": {},"responses": {},"securitySchemes": {}},
+  "x-oai-meta": {
+    "version": "1.0.0",
+    "compatibility": "OpenAI 2024 Core + Assistants APIs",
+    "exported_by": "OpenAPI Builder",
+    "optimized_for": "under 1MB specification use"
+  },
+  "x-model-routing": {"...": "..."}
 }
