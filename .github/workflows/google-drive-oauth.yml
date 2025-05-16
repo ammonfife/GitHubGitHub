@@ -1,7 +1,7 @@
 name: Google Drive OAuth Workflow
 
 on
-  dispatch:
+  workflow_dispatch:
 
 jobs:
   oauth-dribe:
