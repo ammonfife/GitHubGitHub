@@ -25,6 +25,40 @@
           "403": { "description": "Blocked when allowance is not specified or missing" }
         }
       }
+    },
+    "/user/repos": {
+      "get": {
+        "operationId": "getUserRepos",
+        "summary": "List user-accessible repositories",
+        "parameters": [{"name": "visibility", "in": "query", "schema": {"type": "string", "enum": ["all", "public", "private"]}}, {"name": "per_page", "in": "query", "schema": {"type": "integer", "default": 30}}, {"name": "page", "in": "query", "schema": {"type": "integer", "default": 1}}],
+        "responses": {"200": {"description": "List of repositories"}}
+      }
+    },
+    "post": {
+      "operationId": "createRepo",
+      "summary": "Create a new repository",
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": ["name"],
+              "properties": {
+                "name": { "type": "string" },
+                "description": { "type": "string" },
+                "private": { "type": "boolean" },
+                "auto_init": { "type": "boolean" }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "201": { "description": "Repository created"}
+      }
     }
-  }
+  },
+  "components": {"schemas": {}, "securitySchemes": {"TokenAuth": {"type": "apiKey", "in": "header", "name": "Authorization"}}},
+  "security": [{ "TokenAuth": [] }]
 }
