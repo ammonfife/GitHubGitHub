@@ -5,13 +5,7 @@ on:
 
 jobs:
   oauth-drive:
-    runs:
-      - name: Request OpenSession
-        uses:
-          - native-auth
-        with:
-          action: ../.github/actions/google-drive-oauth/action.yml
-          env:
-            GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-            GOOGLE_SECRET_KEY: ${{ secrets.GOOGLE_SECRET_KEY }}
-            REDIRECT_URL: https://example.com/oauth-callback
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Simulate Google Drive login
+        run: || bash .github/actions/google-drive-oauth/auth-test.sh
