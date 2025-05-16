@@ -1,3 +1,9 @@
+
+
+
+
+
+json
 {
   "openapi": "3.1.0",
   "info": {
@@ -15,9 +21,346 @@
       "get": {
         "operationId": "getUserRepos",
         "summary": "List all user-accessible repos with pagination",
-        "parameters": [{ "name": "visibility", "in": "query", "schema": { "type": "string", "enum": ["all", "public", "private"] } }, { "name": "per_page", "in": "query", "schema": { "type": "integer", "default": 30 } }, { "name": "page", "in": "query", "schema": { "type": "integer", "default": 1} }],
-        "responses": { "200": { "description": "List of repositories" } }
+        "parameters": [
+          {
+            "name": "visibility",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["all", "public", "private"]
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 30
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of repositories"
+          }
+        }
       }
+    },
+    "/chat/completions": {
+      "post": {
+        "summary": "Create a chat completion",
+        "operationId": "createChatCompletion",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "model": {
+                    "type": "string",
+                    "enum": ["gpt-4", "gpt-4-turbo", "gpt-3.5-turbo", "gpt-3.5-turbo-1106"],
+                    "default": "gpt-4-turbo"
+                  },
+                  "messages": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "role": {"type": "string"},
+                        "content": {"type": "string"}
+                      },
+                      "required": ["role", "content"]
+                    }
+                  }
+                },
+                "required": ["model", "messages"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {"description": "Chat completion"}
+        }
+      }
+    },
+    "/completions": {
+      "post": {
+        "summary": "Create text completion",
+        "operationId": "createCompletion",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "model": {
+                    "type": "string",
+                    "enum": ["text-davinci-003", "text-curie-001"],
+                    "default": "text-davinci-003"
+                  },
+                  "prompt": {"type": "string"}
+                },
+                "required": ["model", "prompt"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {"description": "Text completion"}
+        }
+      }
+    },
+    "/edits": {
+      "post": {
+        "summary": "Create text edit",
+        "operationId": "createEdit",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "model": {"type": "string"},
+                  "input": {"type": "string"},
+                  "instruction": {"type": "string"}
+                },
+                "required": ["model", "instruction"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {"description": "Text edit"}
+        }
+      }
+    },
+    "/embeddings": {
+      "post": {
+        "summary": "Create embeddings",
+        "operationId": "createEmbedding",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "model": {
+                    "type": "string",
+                    "enum": ["text-embedding-ada-002"],
+                    "default": "text-embedding-ada-002"
+                  },
+                  "input": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                  }
+                },
+                "required": ["model", "input"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {"description": "Embedding result"}
+        }
+      }
+    },
+    "/files": {
+      "get": {
+        "summary": "List files",
+        "operationId": "listFiles",
+        "responses": {
+          "200": {"description": "List of files"}
+        }
+      },
+      "post": {
+        "summary": "Upload file",
+        "operationId": "uploadFile",
+        "responses": {
+          "200": {"description": "File uploaded"}
+        }
+      }
+    },
+    "/files/{file_id}": {
+      "get": {
+        "summary": "Retrieve file metadata",
+        "operationId": "getFile",
+        "parameters": [
+          {"name": "file_id", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {"description": "File metadata"}
+        }
+      },
+      "delete": {
+        "summary": "Delete file",
+        "operationId": "deleteFile",
+        "parameters": [
+          {"name": "file_id", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {"description": "File deleted"}
+        }
+      }
+    },
+    "/files/{file_id}/content": {
+      "get": {
+        "summary": "Retrieve file content",
+        "operationId": "getFileContent",
+        "parameters": [
+          {"name": "file_id", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {"description": "File content"}
+        }
+      }
+    },
+    "/fine_tuning/jobs": {
+      "get": {
+        "summary": "List fine-tuning jobs",
+        "operationId": "listFineTuningJobs",
+        "responses": {
+          "200": {"description": "Jobs"}
+        }
+      },
+      "post": {
+        "summary": "Create fine-tuning job",
+        "operationId": "createFineTuningJob",
+        "responses": {
+          "200": {"description": "Job started"}
+        }
+      }
+    },
+    "/fine_tuning/jobs/{fine_tuning_job_id}": {
+      "get": {
+        "summary": "Retrieve fine-tuning job",
+        "operationId": "getFineTuningJob",
+        "parameters": [
+          {"name": "fine_tuning_job_id", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {"description": "Job details"}
+        }
+      }
+    },
+    "/fine_tuning/jobs/{fine_tuning_job_id}/events": {
+      "get": {
+        "summary": "List job events",
+        "operationId": "listFineTuningEvents",
+        "parameters": [
+          {"name": "fine_tuning_job_id", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {"description": "Events"}
+        }
+      }
+    },
+    "/audio/transcriptions": {
+      "post": {
+        "summary": "Transcribe audio",
+        "operationId": "transcribeAudio",
+        "responses": {
+          "200": {"description": "Transcript"}
+        }
+      }
+    },
+    "/audio/translations": {
+      "post": {
+        "summary": "Translate audio",
+        "operationId": "translateAudio",
+        "responses": {
+          "200": {"description": "Translation"}
+        }
+      }
+    },
+    "/images/generations": {
+      "post": {
+        "summary": "Generate image",
+        "operationId": "generateImage",
+        "responses": {
+          "200": {"description": "Image"}
+        }
+      }
+    },
+    "/images/edits": {
+      "post": {
+        "summary": "Edit image",
+        "operationId": "editImage",
+        "responses": {
+          "200": {"description": "Edited image"}
+        }
+      }
+    },
+    "/images/variations": {
+      "post": {
+        "summary": "Create image variation",
+        "operationId": "createImageVariation",
+        "responses": {
+          "200": {"description": "Variation"}
+        }
+      }
+    },
+    "/models": {
+      "get": {
+        "summary": "List models",
+        "operationId": "listModels",
+        "responses": {
+          "200": {"description": "Models"}
+        }
+      }
+    },
+    "/models/{model_id}": {
+      "get": {
+        "summary": "Retrieve model",
+        "operationId": "getModel",
+        "parameters": [
+          {"name": "model_id", "in": "path", "required": true, "schema": {"type": "string"}}
+        ],
+        "responses": {
+          "200": {"description": "Model info"}
+        }
+      }
+    }
+  },
+  "x-model-routing": {
+    "model_selector": {
+      "chat": "gpt-4-turbo",
+      "chat-fast": "gpt-3.5-turbo",
+      "chat-deep": "gpt-4",
+      "text-complete": "text-davinci-003",
+      "embedding": "text-embedding-ada-002"
+    },
+    "model_aliases": {
+      "default": "chat",
+      "fast": "chat-fast",
+      "deep": "chat-deep",
+      "embed": "embedding",
+      "legacy": "text-complete"
+    },
+    "dynamic_model_resolution": {
+      "patterns": [
+        {"match": "gpt-4-turbo", "task": "chat"},
+        {"match": "gpt-4", "task": "chat-deep"},
+        {"match": "gpt-3.5.*", "task": "chat-fast"},
+        {"match": "text-davinci.*", "task": "text-complete"},
+        {"match": "text-embedding.*", "task": "embedding"}
+      ]
+    },
+    "fallback_reroute": {
+      "if_task": "chat",
+      "and_model_matches": "gpt-4",
+      "reroute_to": "gpt-4-turbo"
     }
   }
 }
