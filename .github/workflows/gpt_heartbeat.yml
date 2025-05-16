@@ -9,5 +9,7 @@ jobs:
   jan:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@12
       - name: Call GPT checker (placeholder)
-        run: echo "This would call the gpt checker to detect tasks, but it needs to be routed to the generative AI."
+        run: echo "This would call the gpt checker to detect tasks, but it needs to be routed to the generative AI.
