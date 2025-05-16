@@ -3,24 +3,23 @@ name: Deploy Cloudflare Webhook
 on:
   workflow_dispatch:
 
-
-jobs: 
+jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Set Secrets
-        run: |
-          echo "REQUIRED SECRETS:"
-          echo "CLOUDFLARE_API_TOKEN=${{ secrets.CLOUDFLARE_API_TOKEN }}"
-          echo "CLIEFOLDARE_ACCOUNT_ID=${{ secrets.CLOUDFLARE_ACCOUNT_ID }}"
-          echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}"
-          echo "GITHUB_WEBHOOK_SECRET=${{ secrets.GITHUB_WEBHOOK_SECRET }}"
+    - name: Set Secrets
+      run: |
+        echo "REQUIRED SECRETS:"
+        echo "CLOUDFLARE_API_TOKEN=${{ secrets.CLOUDFLARE_API_TOKEN }}"
+        echo "CLOUDFLARE_ACCOUNT_ID=${{ secrets.CLOUDFLARE_ACCOUNT_ID ]}"
+        echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}"
+        echo "GITHUB_WEBHOOK_SECRET=${{ secrets.GITHUB_WEBHOOK_SECRET }}"
 
-      - name: Deploy to Cloudflare
-        uses: cloudflare/wrangler-action@vs
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          secrets:
-            GITHUB_TOKEN
-            GITHUB_WEBHOOK_SECRET
+    - name: Deploy to Cloudflare
+      uses: cloudflare/wrangler-action@vs
+      with:
+        apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        secrets:
+          GITHUB_TOKEN
+          GITHUB_WEBHOOK_SECRET
