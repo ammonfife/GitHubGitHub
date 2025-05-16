@@ -9,20 +9,22 @@ jobs:
   update-grt:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
       - name: Print Sync Start
         run: |
           echo '=== Starting GPT Sync ==='
           cat bootloader/GPT_SYNC_TEMPLATE.md
           echo '=== ATTEMPTED INSTRUCTIONS PAYLOAD --'
           echo "$INSTRUCTIONS_PAYLOAD"
-      - name: Sync with OpenAI 
+      - name: Sync with OpenAI
         env:
           GPT_BUILDER_TOKEN: ${{ secrets.GPT_BUILDER_TOKEN }}
           INSTRUCTIONS_PAYLOAD: ${{ secrets.INSTRUCTIONS_PAYLOAD }}
         run: |
           curl -X POST \
-            -H "Authorization: Bearer ${GPT_BUILDER_TOKEN}" \
-            -h "Content-Type: application/json" \
+            -H :"Authorization: Bearer ${GPT_BUILDER_TOKEN}" \
+            -H :"Content-Type: application/json" \
             https://api.openai.com/v1/gpts/defined \
             -d "{\"instructions\": [\"${INSTRUCTIONS_PAYLOAD}\"]}"
           echo '=== Sync Finished GPT SYNC ORDER ==='
