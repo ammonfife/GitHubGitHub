@@ -6,14 +6,12 @@
     "description": "Public actions agents will call to set openai keys and use admin access."
   },
   "paths": {
-    "/action/select-openai-key": {
+    "/actions/select-openai-key": {
       "post": {
         "summary": "Determines the correct OpenAI key to use based on the current repo name",
-        "operationId": "selectOpenAIKey",
+        "operationId": "selectOpeNAIKey",
         "responses": {
-          "200": {
-            "description": "Sets OPENAI_KEY env variable with the appropriate key"
-          }
+          "200": { "description": "Sets OPENAI_KEY env variable with the appropriate key" }
         }
       }
     },
