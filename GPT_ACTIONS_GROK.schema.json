@@ -1,28 +1,399 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Grok API Action",
-    "version": "1.0.0",
-    "description": "GPT action for calling the Grok AI chat endpoint using a provided token."
+    "title": "xAI Grok API",
+    "version": "1.0.1",
+    "description": "Comprehensive OpenAPI schema for xAI's Grok REST API with fallback-aware model guidance."
   },
+  "servers": [
+    {
+      "url": "https://api.x.ai/v1"
+    }
+  ],
   "paths": {
-    "model": {
-      "type": "string",
-      "description": "Grok model to use",
-      "default": "grok-3-beta"
-    },
-    "messages": {
-      "type": "array",
-      "description": "List of messages to pass to the chat API",
-      "items": {
-        "type": "object",
-        "required": ["role","content"],
-        "properties": {
-          "role": { "type": "string" },
-          "content": { "type": "string" }
+    "/chat/completions": {
+      "post": {
+        "summary": "Create a chat response",
+        "operationId": "createChatCompletion",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "messages": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "role": {
+                          "type": "string"
+                        },
+                        "content": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "role",
+                        "content"
+                      ]
+                    }
+                  },
+                  "model": {
+                    "type": "string",
+                    "enum": [
+                      "grok-3-fast-latest",
+                      "grok-3-latest",
+                      "grok-3-mini-fast-latest",
+                      "grok-2-vision-1212"
+                    ],
+                    "default": "grok-3-fast-latest",
+                    "description": "Defaults to grok-3-fast-latest for fast, general-purpose tasks. Use grok-3-latest for deeper reasoning, or grok-2-vision-1212 for multimodal input (e.g. image + text Q&A)."
+                  },
+                  "reasoning_effort": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "messages",
+                  "model"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "object": {
+                      "type": "string"
+                    },
+                    "created": {
+                      "type": "integer"
+                    },
+                    "model": {
+                      "type": "string"
+                    },
+                    "choices": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "index": {
+                            "type": "integer"
+                          },
+                          "message": {
+                            "type": "object",
+                            "properties": {
+                              "role": {
+                                "type": "string"
+                              },
+                              "content": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "finish_reason": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "usage": {
+                      "type": "object",
+                      "properties": {
+                        "prompt_tokens": {
+                          "type": "integer"
+                        },
+                        "completion_tokens": {
+                          "type": "integer"
+                        },
+                        "total_tokens": {
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "system_fingerprint": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     },
-    "temperature": { "type": "number", "default": 0.7 }
+    "/chat/deferred-completion/{request_id}": {
+      "get": {
+        "summary": "Get deferred chat completion",
+        "operationId": "getDeferredChatCompletion",
+        "parameters": [
+          {
+            "name": "request_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "202": {
+            "description": "Pending"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/messages": {
+      "post": {
+        "summary": "Create Anthropic-compatible message",
+        "operationId": "createMessage",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "model": {
+                    "type": "string",
+                    "enum": [
+                      "grok-3-fast-latest",
+                      "grok-3-latest",
+                      "grok-3-mini-fast-latest",
+                      "grok-2-vision-1212"
+                    ],
+                    "default": "grok-3-fast-latest",
+                    "description": "Defaults to grok-3-fast-latest. Use grok-3-latest for richer context, or grok-2-vision-1212 for multimodal use."
+                  },
+                  "max_tokens": {
+                    "type": "integer"
+                  },
+                  "messages": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "role": {
+                          "type": "string"
+                        },
+                        "content": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "role",
+                        "content"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "model",
+                  "max_tokens",
+                  "messages"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/images/generations": {
+      "post": {
+        "summary": "Generate image from prompt",
+        "operationId": "generateImage",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "prompt": {
+                    "type": "string"
+                  },
+                  "model": {
+                    "type": "string",
+                    "enum": [
+                      "grok-2-image-1212"
+                    ],
+                    "default": "grok-2-image-1212",
+                    "description": "Only grok-2-image-1212 is supported for image generation."
+                  },
+                  "response_format": {
+                    "type": "string"
+                  },
+                  "n": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "prompt",
+                  "model"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Image generated"
+          }
+        }
+      }
+    },
+    "/models": {
+      "get": {
+        "summary": "List available models",
+        "operationId": "listModels",
+        "responses": {
+          "200": {
+            "description": "List of models"
+          }
+        }
+      }
+    },
+    "/models/{model_id}": {
+      "get": {
+        "summary": "Get model info",
+        "operationId": "getModelInfo",
+        "parameters": [
+          {
+            "name": "model_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Model info returned"
+          }
+        }
+      }
+    },
+    "/tokenize-text": {
+      "post": {
+        "summary": "Tokenize input text",
+        "operationId": "tokenizeText",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "model": {
+                    "type": "string",
+                    "enum": [
+                      "grok-3-fast-latest",
+                      "grok-3-latest",
+                      "grok-3-mini-fast-latest"
+                    ],
+                    "default": "grok-3-fast-latest",
+                    "description": "Defaults to grok-3-fast-latest. Use grok-3-latest for more accurate token mappings if required."
+                  },
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "model",
+                  "text"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Tokens returned"
+          }
+        }
+      }
+    },
+    "/api-key": {
+      "get": {
+        "summary": "Get API key metadata",
+        "operationId": "getApiKeyInfo",
+        "responses": {
+          "200": {
+            "description": "API key information"
+          }
+        }
+      }
+    }
+  },
+  "x-model-routing": {
+    "model_selector": {
+      "chat": "grok-3-fast-beta",
+      "chat-fast": "grok-3-mini-fast-beta",
+      "chat-deep": "grok-3-beta",
+      "multimodal": "grok-2-vision-1212",
+      "image-gen": "grok-2-image-1212"
+    },
+    "model_aliases": {
+      "default": "chat",
+      "fast": "chat-fast",
+      "deep": "chat-deep",
+      "vision": "multimodal",
+      "image": "image-gen"
+    },
+    "dynamic_model_resolution": {
+      "patterns": [
+        {
+          "match": "grok-3.*fast.*",
+          "task": "chat-fast"
+        },
+        {
+          "match": "grok-3.*mini.*",
+          "task": "chat-fast"
+        },
+        {
+          "match": "grok-3.*",
+          "task": "chat"
+        },
+        {
+          "match": "grok-2-image.*",
+          "task": "image-gen"
+        },
+        {
+          "match": "grok-2-vision.*",
+          "task": "multimodal"
+        }
+      ]
+    },
+    "fallback_reroute": {
+      "if_task": "image-gen",
+      "and_model_matches": "grok-2-vision.*",
+      "reroute_to": "grok-2-image-1212"
+    }
   }
 }
