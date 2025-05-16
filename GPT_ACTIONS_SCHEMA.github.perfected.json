@@ -1,0 +1,34 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "GitHub GPT Actions",
+    "version": "1.0.0",
+    "description": "Comprehensive GitHub API schema with public and fallback actions."
+  },
+  "servers": [
+    { "url": "https://api.github.com" }
+  ],
+  "paths": {
+    "/user/repos": {
+      "get": {
+        "operationId": "getUserRepos",
+        "summary": "List all user-accessible repos with pagination",
+        "parameters": [
+          { "name": "visibility", "in": "query", "schema": { "type": "string", "enum": ["all", "public", "private"] } },
+          { "name": "per_page", "in": "query", "schema": { "type": "integer", "default": 30, "maximum": 40 } },
+          { "name": "page", "in": "query", "schema": { "type": "integer", "default": 1 } }
+        ],
+        "responses": { "200": { "description": "List of repositories" } }
+      },
+      "post": {
+        "operationId": "createRepo",
+        "summary": "Create a new repository",
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { } }
+        },
+        "responses": { "201": { "description": "Repo created" } }
+      }
+    }
+  }
+}
