@@ -9,8 +9,8 @@ jobs:
       - name: Call Grok API
         run: |
           cat <<EOF | curl https://api.x.ai/v1/chat/completions \
-          -H :"Content-Type: application/json" \
-            H:"Authorization: Bearer ${{ secrets.GROK_API}}" \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bearer ${{ secrets.GROK_API }}" \
             -d @-
           {
             "model": "grok-3-beta",
@@ -20,4 +20,4 @@ jobs:
             ],
             "temperature": 0.7
           }
-EOF
+          EOF
