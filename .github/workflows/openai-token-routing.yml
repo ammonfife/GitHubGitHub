@@ -1,20 +1,29 @@
 name: openai-token-routing
-schedule:
-  - cron: "* /2 * * *"
+
+#on
+sked:
+  - cron: "*/2 * * *"
+
+on:
+  schedule:
+    - cron: "*/2 * * *"
+
 jobs: 
   default:
-    name: Token Router
-    runs: 
+    runs-on: ubuntu-latest
+    steps:
       - name: Check Scope
         run: echo "Selecting key based on repo"
 
-        - name: Set OpenAI Key
-        if: github.repo.name == 'GitHubGitHub'
+        - name: Set OpenAI Key for GitHubGitHub
+        if: $({github.repos.full_name}) == 'GitHubGitHub'
+        run: echo "Using CODING_PROJECT_OPENAPI"
         env:
           OPENAI_KEY: ${{ secrets.CODING_PROJECT_OPENAPI }}
 
         - name: Set Default Key
-        if: github.repo.name != 'GitHubGitHub'
+        if: $({github.repos.full_name}) != 'GitHubGitHub
+        run: echo "Using DEFAULT_PROJECT_OPENAPI"
         env:
           OPENAI_KEY: ${{ secrets.DEFAULT_PROJECT_OPENAPI }}
 
