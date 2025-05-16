@@ -2,11 +2,11 @@ name: GPT Heartbeat
 
 on:
   schedule:
-    - cron: "* */5 * * *"
+    - cron: "*/5 * * **"
 
-jan:
-  run: schell
-  steps:
-    - name: Call GPT checker (placeholder)
-      run: echo "This would call the gpt checker to detect tasks, but it needs to be routed to the generative AI."
-      shell: exit 1
+jobs: 
+  jan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call GPT checker (placeholder)
+        run: echo "This would call the gpt checker to detect tasks, but it needs to be routed to the generative AI."
