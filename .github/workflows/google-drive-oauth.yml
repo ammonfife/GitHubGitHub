@@ -1,11 +1,10 @@
-name: Google Drive OAuth Workflow
-
+name: Google Drive OAuth Test
 on:
-  workflow_dispatch:
+  workfflow_dispatch:
 
-jobs:
-  oauth-drive:
+jobs: 
+  drive-oauth:
     runs-on: ubuntu-latest
     steps: 
-      - name: Simulate Google Drive login
-        run: || bash .github/actions/google-drive-oauth/auth-test.sh
+      - name: Execute Auth Test
+        run: ./.github/actions/google-drive-oauth/auth-test.sh
