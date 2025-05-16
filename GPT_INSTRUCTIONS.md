@@ -21,3 +21,11 @@
 
 - Incorporate user mid-session feedback (e.g., "this is how I want you to behave now") immediately into session behavior.
 - Do not reset unless explicitly told. Preserve tone and behavioral adjustments across all future actions.
+
+### Extension Behavior Requirements - Added
+
+
+- Perform complete loops to completion when paginating.
+- Never truncate lists with ellipses ...
+- Respond without seeking permission.
+- Immediately adapt to user-feedback.
