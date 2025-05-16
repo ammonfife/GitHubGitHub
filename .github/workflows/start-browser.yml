@@ -1,0 +1,55 @@
+name: Start Remote Browser and Return Screenshot
+
+on:
+  workflow_dispatch:
+
+jobs:
+  launch-browser:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser xvfb imagemagick jq curl python3 python3-pip
+          pip3 install beautifulsoup4
+
+      - name: Start headless browser, scroll and take screenshot
+        run: |
+          mkdir -p screenshots
+          Xvfb :99 -screen 0 1280x1024x24 &
+          export DISPLAY=:99
+          chromium-browser --headless --disable-gpu --disable-blink-features=AutomationControlled \
+            --virtual-time-budget=30000 --run-all-compositor-stages-before-draw \
+            --screenshot=screenshots/output.png https://getbasecase.com
+
+      - name: Extract DOM content
+        run: |
+          chromium-browser --headless --disable-gpu --dump-dom https://getbasecase.com > screenshots/dom.html
+
+      - name: Upload screenshot to GitHub via API
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          REPO=${{ github.repository }}
+          BRANCH=$(jq -r .ref_name "$GITHUB_EVENT_PATH")
+          COMMIT_MSG="Add screenshot and DOM from browser session"
+
+          for FILE in screenshots/output.png screenshots/dom.html; do
+            FILEPATH="$FILE"
+            CONTENT=$(base64 -w 0 "$FILE")
+
+            SHA=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+                    https://api.github.com/repos/$REPO/contents/$FILEPATH | jq -r .sha)
+
+            DATA=$(jq -n --arg msg "$COMMIT_MSG" --arg content "$CONTENT" --arg path "$FILEPATH" --arg branch "$BRANCH" \
+                    --argjson hasSha "${SHA:+true}" \
+                    '{message: $msg, content: $content, branch: $branch} + (hasSha | if . then {sha: $SHA} else {} end)')
+
+            curl -X PUT -H "Authorization: token $GITHUB_TOKEN" \
+                 -H "Content-Type: application/json" \
+                 --data "$DATA" \
+                 https://api.github.com/repos/$REPO/contents/$FILEPATH
+          done
