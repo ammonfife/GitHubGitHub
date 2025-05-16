@@ -4,19 +4,28 @@ on:
   push:
     paths:
       - bootloader/GPT_SYNC_TEMPLATE.md
+  workflow_dispatch:
 
 jobs:
   update-grt:
-    run-on-validate-for:
-      shell: bash
-      run: |
-        echo '=== Starting GPT Sync ==='
-        cat < bootloader/GPT_SYNC_TEMPLATE.md
-        echo '=== ATTEMPTED INSTRUCTIONS PAYLOAD --'
-        echo "$INSTRUCTIONS_PAYLOAD"        
-        curl -http STPUL
-            -H "Authorization: Bearer ${GPT_BUILDER_TOKEN}"
-            -H "Content-Type: application/json"
-            -x POST https://api.openai.com/v1/gpts/defined \
-            -d '{"instructions": ["$INSTRUCTIONS_PAYLOAD"]}'
-        echo '=== Sync Finished GPT SYNC ORDER ==='
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Sync Start
+        shell: bash
+        run: |
+          echo '=== Starting GPT Sync ==='
+          cat bootloader/GPT_SYNC_TEMPLATE.md
+          echo '=== ATTEMPTED INSTRUCTIONS PAYLOAD --'
+          echo "$INSTRUCTIONS_PAYLOAD"
+      - name: Sync with OpenAI
+        shell: bash
+        env:
+          GPT_BUILDER_TOKEN: ${{ secrets.GPT_BUILDER_TOKEN }}
+          INSTRUCTIONS_PAYLOAD: ${{ secrets.INSTRUCTIONS_PAYLOAD }}
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${GPT_BUILDER_TOKEN}" \
+            -H "Content-Type: application/json" \
+            https://api.openai.com/v1/gpts/defined \
+            -d "{\"instructions\": [\"$INSTRUCTIONS_PAYLOAD\"]}"
+          echo '=== Sync Finished GPT SYNC ORDER ==='
