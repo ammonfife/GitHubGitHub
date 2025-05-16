@@ -11,11 +11,13 @@ jobs:
           curl https://api.x.ai/v1/chat/completions \
           -H :"Content-Type: application/json" \
             H:"Authorization: Bearer ${{ secrets.GROK_API}}" \
-            -d '{
-              "model": "grok-3-beta",
-              "messages": [
-                {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": "Say hello"}
-              ],
-              "temperature": 0.7
-            }'
+            -d @- <<EOF
+          {
+            "model": "grok-3-beta",
+            "messages": [
+              {"role": "system", "content": "You are a helpful assistant."},
+              {"role": "user", "content": "Say hello"}
+            ],
+            "temperature": 0.7
+          }
+EOF
