@@ -1,29 +1,31 @@
-name: openai-token-routing
+name: OpenAI Token Routing
 
 on:
-  schedule:
-    - cron: "*/2 * * * *"
-
+  push:
+    branches: [ main ]
+  workflow_dispatch:
 jobs:
   default:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Check Scope
-        run: echo "Selecting key based on repo"
 
-      - name: Set OpenAI Key for GitHubGitHub
-        if: ${{ github.repository == 'ammonfife/GitHubGitHub' }}
+      - name: Select Key Scope
+        run: echo "Determining appropriate OpenAI api key..."
+
+      - name: Set Key for GitHubGitHub
+        if: ${{ github.repository == 'ammonfife/GitHubGitHub' && secrets.CODING_PROJECT_OPENAPI != '' }}
         run: echo "Using CODING_PROJECT_OPENAPI"
         env:
-          OPPNAI_KEY: ${{ secrets.CODING_PROJECT_OPENAPI }}
+          OPENAI_KEY: ${{ secrets.CODING_PROJECT_OPENAPI }}
 
-      - name: Set Default Key
-        if: ${{ github.repository != 'ammonfife/GitHubGitHub' }}
+      - name: Set Fallback Key
+        if: ${{ github.repository != 'ammonfife/GitHubGitHub' && secrets.DEFAULT_PROJECT_OPENAPI != '' }}
         run: echo "Using DEFAULT_PROJECT_OPENAPI"
         env:
-          OPPNAI_KEY: ${{ secrets.DEFAULT_PROJECT_OPENAPI }}
+          OPENAI_KEY: ${{ secrets.DEFAULT_PROJECT_OPENAPI }}
 
-      - name: Report Used key
-        run: echo "Used OpenAI Key: $OPPNAI_KEY"
+      - name: No key available
+        if: ${{ secrets.CODING_PROJECT_OPENAPI == '' && secrets.DEFAULT_PROJECT_OPENAPI == '' }}
+        run: echo "No OpenAI API key available."
