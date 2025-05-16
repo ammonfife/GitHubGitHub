@@ -1,8 +1,9 @@
 name: SyncGPTF
 
 on:
-  files:
-    - bootloader/GPT_SYNC_TEMPLATE.md
+  push:
+    paths:
+      - bootloader/GPT_SYNC_TEMPLATE.md
 
 jobs:
   update-grt:
