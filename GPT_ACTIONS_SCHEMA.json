@@ -1,9 +1,28 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Schema Dispatcher",
+    "title": "Grok API Action",
     "version": "1.0.0",
-    "description": "See GPT_ACTIONS_SCHEMA.github.json and GPT_ACTIONS_SCHEMA.openai.json"
-},
-  "paths": {}
+    "description": "GPT action for calling the Grok AI chat endpoint using a provided token."
+  },
+  "paths": {
+    "model": {
+      "type": "string",
+      "description": "Grok model to use",
+      "default": "grok-3-beta"
+    },
+    "messages": {
+      "type": "array",
+      "description": "List of messages to pass to the chat API",
+      "items": {
+        "type": "object",
+        "required": ["role","content"],
+        "properties": {
+          "role": { "type": "string" },
+          "content": { "type": "string" }
+        }
+      }
+    },
+    "temperature": { "type": "number", "default": 0.7 }
+  }
 }
