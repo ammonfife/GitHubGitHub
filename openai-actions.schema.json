@@ -6,12 +6,14 @@
     "description": "Public actions agents will call to set openai keys and use admin access."
   },
   "paths": {
-    "/actions/select-openai-key": {
+    "/action/select-openai-key": {
       "post": {
         "summary": "Determines the correct OpenAI key to use based on the current repo name",
-        "operationId": "selectOpeNAIKey",
+        "operationId": "selectOpenAIKey",
         "responses": {
-          "200": { "description": "Sets OPENAI_KEY env variable with the appropriate key" }
+          "200": {
+            "description": "Sets OPENAI_KEY env variable with the appropriate key"
+          }
         }
       }
     },
@@ -24,38 +26,6 @@
           "200": { "description": "Admin token applied; OpenAI commands can now be executed with evaluated privileges" },
           "403": { "description": "Blocked when allowance is not specified or missing" }
         }
-      }
-    },
-    "/user/repos": {
-      "get": {
-        "operationId": "getUserRepos",
-        "summary": "List user-accessible repositories",
-        "parameters": [{"name": "visibility", "in": "query", "schema": {"type": "string", "enum": ["all", "public", "private"]}}, {"name": "per_page", "in": "query", "schema": {"type": "integer", "default": 30}}, {"name": "page", "in": "query", "schema": {"type": "integer", "default": 1}}],
-        "responses": {"200": {"description": "List of repositories"}}
-      }
-    },
-    "post": {
-      "operationId": "createRepo",
-      "summary": "Create a new repository",
-      "requestBody": {
-        "required": true,
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "required": ["name"],
-              "properties": {
-                "name": { "type": "string" },
-                "description": { "type": "string" },
-                "private": { "type": "boolean" },
-                "auto_init": { "type": "boolean" }
-              }
-            }
-          }
-        }
-      },
-      "responses": {
-        "201": { "description": "Repository created"}
       }
     }
   },
