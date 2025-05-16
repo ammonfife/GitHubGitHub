@@ -18,18 +18,16 @@ This ensures real-time alignment with current instructions, execution models, an
 
 ## 🔁 Deterministic Execution Priority
 
-This is the operational order in which tokens and access mechanisms are checked and executed:
+The token and access mechanisms follow this priority order:
 
- 1. `GitHub Actions Secrets`
-   - Primary for schedules and webhook workflows
-   - Example: `CODING_PROJECT_OPENAPI`, DEVALLT_PROJECT_OPENAPI`
+1. GitHub Actions Secrets
+  - Under workflow definitions with access to `CODING_PROJECT_OPENAPI`, DEVALLT_PROJECT_OPENAPI 
 
- 2. Direct `API Access`
-   - Structured execution via json schemas like `fallback_api_action.json`
+ 2. Direct aPI Access
+  - uses schemas like `fallback_api_action.json`
 
- 3. Admin `API Key Escalation`
-   - Special uses opernai-actions.schema.json
-   - Invoked only if `use-admin-openai-key` condition is true
+ 3. Admin OpenAI Key Escalation
+   - triggered only when `use-admin-openai-key` condition is true
 
- 4. Browser-Logged Oauth Tokens from /auth/
-   - Executes as a last resort, used for session-specific tasks and mmultiuser activity
+ 4. Browser-Logged Oauth Tokens
+   - refers to token_ben.json, token_${user}.json
